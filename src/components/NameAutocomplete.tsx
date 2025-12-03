@@ -2,12 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-interface NameAutocompleteProps {
+type NameAutocompleteProps = {
   value: string;
   onChange: (value: string) => void;
   suggestions: string[];
   placeholder?: string;
-}
+};
 
 export const NameAutocomplete = ({
   value,

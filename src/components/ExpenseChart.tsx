@@ -1,10 +1,10 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 import { categories, getCategoryById, formatCurrency } from "@/lib/data";
 
-interface ExpenseChartProps {
+type ExpenseChartProps = {
   expensesByCategory: Record<string, number>;
   total: number;
-}
+};
 
 export const ExpenseChart = ({ expensesByCategory, total }: ExpenseChartProps) => {
   const data = Object.entries(expensesByCategory)

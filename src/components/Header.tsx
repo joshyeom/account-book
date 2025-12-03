@@ -2,10 +2,10 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-interface HeaderProps {
+type HeaderProps = {
   title: string;
   showBack?: boolean;
-}
+};
 
 export const Header = ({ title, showBack = false }: HeaderProps) => {
   const navigate = useNavigate();

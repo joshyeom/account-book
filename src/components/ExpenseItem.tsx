@@ -1,8 +1,8 @@
 import { getCategoryById, formatCurrency, formatDate, type Expense } from "@/lib/data";
 
-interface ExpenseItemProps {
+type ExpenseItemProps = {
   expense: Expense;
-}
+};
 
 export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
   const category = getCategoryById(expense.category);

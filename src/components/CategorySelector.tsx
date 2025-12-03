@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import { categories, type Category } from "@/lib/data";
 
-interface CategorySelectorProps {
+type CategorySelectorProps = {
   selected: string | null;
   onSelect: (categoryId: string) => void;
-}
+};
 
 export const CategorySelector = ({ selected, onSelect }: CategorySelectorProps) => {
   return (

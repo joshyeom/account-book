@@ -1,9 +1,9 @@
 import { ExpenseItem } from "./ExpenseItem";
 import { type Expense } from "@/lib/data";
 
-interface ExpenseListProps {
+type ExpenseListProps = {
   expenses: Expense[];
-}
+};
 
 export const ExpenseList = ({ expenses }: ExpenseListProps) => {
   if (expenses.length === 0) {

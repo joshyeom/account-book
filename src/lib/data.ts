@@ -10,20 +10,20 @@ import {
   type LucideIcon
 } from "lucide-react";
 
-export interface Expense {
+export type Expense = {
   id: string;
   amount: number;
   name: string;
   category: string;
   date: string;
-}
+};
 
-export interface Category {
+export type Category = {
   id: string;
   name: string;
   icon: LucideIcon;
   color: string;
-}
+};
 
 export const categories: Category[] = [
   { id: "food", name: "Food", icon: Utensils, color: "hsl(0, 72%, 51%)" },
