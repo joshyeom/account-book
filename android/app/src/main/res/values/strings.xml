@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">account-book</string>
+    <string name="title_activity_main">account-book</string>
+    <string name="package_name">com.accountbook.app</string>
+    <string name="custom_url_scheme">com.accountbook.app</string>
+</resources>
