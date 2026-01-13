@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AI 가계부</string>
+    <string name="title_activity_main">AI 가계부</string>
+    <string name="package_name">com.accountbook.app</string>
+    <string name="custom_url_scheme">com.accountbook.app</string>
+</resources>

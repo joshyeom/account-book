@@ -1,0 +1,65 @@
+import {
+  Utensils,
+  Car,
+  Coffee,
+  ShoppingBag,
+  Film,
+  Heart,
+  Home,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
+
+export interface DefaultCategory {
+  name: string
+  icon: string
+  color: string
+  iconComponent: LucideIcon
+}
+
+export const DEFAULT_CATEGORIES: DefaultCategory[] = [
+  { name: '식비', icon: 'Utensils', color: 'hsl(0, 84%, 60%)', iconComponent: Utensils },
+  { name: '교통', icon: 'Car', color: 'hsl(25, 95%, 53%)', iconComponent: Car },
+  { name: '카페', icon: 'Coffee', color: 'hsl(30, 41%, 41%)', iconComponent: Coffee },
+  { name: '쇼핑', icon: 'ShoppingBag', color: 'hsl(280, 68%, 47%)', iconComponent: ShoppingBag },
+  { name: '여가', icon: 'Film', color: 'hsl(221, 83%, 53%)', iconComponent: Film },
+  { name: '건강', icon: 'Heart', color: 'hsl(142, 71%, 45%)', iconComponent: Heart },
+  { name: '주거', icon: 'Home', color: 'hsl(186, 94%, 37%)', iconComponent: Home },
+  { name: '공과금', icon: 'Zap', color: 'hsl(48, 96%, 53%)', iconComponent: Zap },
+]
+
+export const ICON_MAP: Record<string, LucideIcon> = {
+  Utensils,
+  Car,
+  Coffee,
+  ShoppingBag,
+  Film,
+  Heart,
+  Home,
+  Zap,
+}
+
+export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('ko-KR', {
+    style: 'currency',
+    currency: 'KRW',
+  }).format(amount)
+}
+
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString)
+  const today = new Date()
+  const yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+
+  if (date.toDateString() === today.toDateString()) {
+    return '오늘'
+  } else if (date.toDateString() === yesterday.toDateString()) {
+    return '어제'
+  } else {
+    return new Intl.DateTimeFormat('ko-KR', {
+      month: 'long',
+      day: 'numeric',
+    }).format(date)
+  }
+}
