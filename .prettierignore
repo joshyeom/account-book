@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Cache
+.cache
+
+# Package files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# IDE
+.idea
+.vscode
+
+# Mobile
+ios
+android
+.capacitor
+
+# Generated
+*.d.ts
+next-env.d.ts
+
+# Config files that shouldn't be formatted
+*.config.js
+*.config.mjs
