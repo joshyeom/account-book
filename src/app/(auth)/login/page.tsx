@@ -1,52 +1,37 @@
-'use client'
+"use client";
 
-import { createClient } from '@/lib/supabase/client'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Wallet } from 'lucide-react'
+import { Wallet } from "lucide-react";
 
-export const dynamic = 'force-dynamic'
+import { createClient } from "@/lib/supabase/client";
+
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui";
+
+export const dynamic = "force-dynamic";
 
 export default function LoginPage() {
   const handleGoogleLogin = async () => {
-    const supabase = createClient()
+    const supabase = createClient();
     await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
-    })
-  }
-
-  const handleKakaoLogin = async () => {
-    const supabase = createClient()
-    await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-  }
+    });
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="bg-background flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-            <Wallet className="w-8 h-8 text-primary" />
+        <CardHeader className="space-y-4 text-center">
+          <div className="bg-primary/10 mx-auto flex h-16 w-16 items-center justify-center rounded-full">
+            <Wallet className="text-primary h-8 w-8" />
           </div>
           <CardTitle className="text-2xl">AI 가계부</CardTitle>
-          <CardDescription>
-            영수증을 찍으면 AI가 자동으로 가계부를 작성해드려요
-          </CardDescription>
+          <CardDescription>영수증을 찍으면 AI가 자동으로 가계부를 작성해드려요</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Button
-            variant="outline"
-            className="w-full h-12 text-base"
-            onClick={handleGoogleLogin}
-          >
-            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+          <Button variant="outline" className="h-12 w-full text-base" onClick={handleGoogleLogin}>
+            <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -66,22 +51,8 @@ export default function LoginPage() {
             </svg>
             Google로 계속하기
           </Button>
-
-          <Button
-            variant="outline"
-            className="w-full h-12 text-base bg-[#FEE500] hover:bg-[#FEE500]/90 text-black border-[#FEE500]"
-            onClick={handleKakaoLogin}
-          >
-            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M12 3C6.48 3 2 6.48 2 10.5c0 2.55 1.64 4.79 4.11 6.08-.13.47-.84 3.02-.87 3.22 0 0-.02.08.04.11.06.03.13.01.13.01.17-.02 1.97-1.29 2.87-1.9.56.09 1.14.13 1.72.13 5.52 0 10-3.48 10-7.78S17.52 3 12 3z"
-              />
-            </svg>
-            카카오로 계속하기
-          </Button>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

@@ -1,37 +1,45 @@
-'use client'
+"use client";
 
-import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
-import { User } from '@supabase/supabase-js'
-import { LogOut, User as UserIcon, Settings } from 'lucide-react'
+import { useRouter } from "next/navigation";
+
+import { User } from "@supabase/supabase-js";
+import { LogOut, Settings, User as UserIcon } from "lucide-react";
+
+import { createClient } from "@/lib/supabase/client";
+
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui";
 
-interface UserMenuProps {
-  user: User
-}
+type UserMenuProps = {
+  user: User;
+};
 
 export function UserMenu({ user }: UserMenuProps) {
-  const router = useRouter()
-  const supabase = createClient()
+  const router = useRouter();
+  const supabase = createClient();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.refresh()
-  }
+    await supabase.auth.signOut();
+    router.refresh();
+  };
 
-  const initials = user.user_metadata?.full_name
-    ?.split(' ')
-    .map((n: string) => n[0])
-    .join('')
-    .toUpperCase() || user.email?.[0].toUpperCase() || 'U'
+  const initials =
+    user.user_metadata?.full_name
+      ?.split(" ")
+      .map((n: string) => n[0])
+      .join("")
+      .toUpperCase() ||
+    user.email?.[0].toUpperCase() ||
+    "U";
 
   return (
     <DropdownMenu>
@@ -40,7 +48,7 @@ export function UserMenu({ user }: UserMenuProps) {
           <Avatar className="h-9 w-9">
             <AvatarImage
               src={user.user_metadata?.avatar_url}
-              alt={user.user_metadata?.full_name || 'User'}
+              alt={user.user_metadata?.full_name || "User"}
             />
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
@@ -53,10 +61,8 @@ export function UserMenu({ user }: UserMenuProps) {
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col space-y-0.5">
-            <p className="text-sm font-medium">
-              {user.user_metadata?.full_name || '사용자'}
-            </p>
-            <p className="text-xs text-muted-foreground">{user.email}</p>
+            <p className="text-sm font-medium">{user.user_metadata?.full_name || "사용자"}</p>
+            <p className="text-muted-foreground text-xs">{user.email}</p>
           </div>
         </div>
         <DropdownMenuSeparator />
@@ -75,5 +81,5 @@ export function UserMenu({ user }: UserMenuProps) {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
