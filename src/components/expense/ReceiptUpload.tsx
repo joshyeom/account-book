@@ -1,91 +1,110 @@
-'use client'
+"use client";
 
-import { useState, useRef } from 'react'
-import { Camera, Upload, Loader2, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { toast } from 'sonner'
+import { useCallback, useRef, useState } from "react";
 
-interface AnalyzedReceipt {
-  name: string
-  amount: number
-  date: string
-  category: string
-  isNewCategory: boolean
-  suggestedIcon?: string
-  suggestedColor?: string
-}
+// bundle-barrel-imports: 개별 아이콘만 import하여 트리 쉐이킹 최적화
+import { Camera, Loader2, Upload, X } from "lucide-react";
+import { toast } from "sonner";
 
-interface ReceiptUploadProps {
-  onAnalyzed: (data: AnalyzedReceipt) => void
-}
+import { Button, Card, CardContent } from "@/components/ui";
+
+import type { TransactionType } from "@/types/database";
+
+export type AnalyzedReceiptItem = {
+  name: string;
+  amount: number;
+  date: string;
+  type: TransactionType;
+  category: string;
+  isNewCategory: boolean;
+  suggestedIcon?: string;
+  suggestedColor?: string;
+};
+
+export type AnalyzedReceiptResponse = {
+  items: AnalyzedReceiptItem[];
+};
+
+type ReceiptUploadProps = {
+  onAnalyzed: (data: AnalyzedReceiptResponse) => void;
+};
 
 export function ReceiptUpload({ onAnalyzed }: ReceiptUploadProps) {
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [preview, setPreview] = useState<string | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const cameraInputRef = useRef<HTMLInputElement>(null)
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageSelect = async (file: File) => {
-    // Show preview
-    const reader = new FileReader()
-    reader.onload = (e) => setPreview(e.target?.result as string)
-    reader.readAsDataURL(file)
+  // rerender-functional-setstate: useCallback으로 함수 참조 안정화
+  const handleImageSelect = useCallback(
+    async (file: File) => {
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = (e) => setPreview(e.target?.result as string);
+      reader.readAsDataURL(file);
 
-    // Analyze receipt
-    setIsAnalyzing(true)
-    try {
-      const formData = new FormData()
-      formData.append('image', file)
+      // Analyze receipt
+      setIsAnalyzing(true);
+      try {
+        const formData = new FormData();
+        formData.append("image", file);
 
-      const response = await fetch('/api/ai/analyze-receipt', {
-        method: 'POST',
-        body: formData,
-      })
+        const response = await fetch("/api/ai/analyze-receipt", {
+          method: "POST",
+          body: formData,
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to analyze receipt')
+        if (!response.ok) {
+          throw new Error("Failed to analyze receipt");
+        }
+
+        const data: AnalyzedReceiptResponse = await response.json();
+        onAnalyzed(data);
+        const itemCount = data.items?.length || 0;
+        toast.success(`${itemCount}건의 거래 내역을 찾았습니다!`);
+      } catch (error) {
+        console.error("Analysis error:", error);
+        toast.error("스크린샷 분석에 실패했습니다");
+      } finally {
+        setIsAnalyzing(false);
       }
+    },
+    [onAnalyzed]
+  );
 
-      const data = await response.json()
-      onAnalyzed(data)
-      toast.success('영수증 분석 완료!')
-    } catch (error) {
-      console.error('Analysis error:', error)
-      toast.error('영수증 분석에 실패했습니다')
-    } finally {
-      setIsAnalyzing(false)
-    }
-  }
+  // rerender-functional-setstate: useCallback으로 함수 참조 안정화
+  const handleFileChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        handleImageSelect(file);
+      }
+    },
+    [handleImageSelect]
+  );
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      handleImageSelect(file)
-    }
-  }
-
-  const clearPreview = () => {
-    setPreview(null)
-    if (fileInputRef.current) fileInputRef.current.value = ''
-    if (cameraInputRef.current) cameraInputRef.current.value = ''
-  }
+  // rerender-functional-setstate: useCallback으로 함수 참조 안정화
+  const clearPreview = useCallback(() => {
+    setPreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (cameraInputRef.current) cameraInputRef.current.value = "";
+  }, []);
 
   return (
-    <Card className="overflow-hidden">
-      <CardContent className="p-4">
+    <Card className="border-muted-foreground/25 hover:border-primary/50 overflow-hidden border-2 border-dashed transition-colors">
+      <CardContent className="p-0">
         {preview ? (
           <div className="relative">
             <img
               src={preview}
               alt="Receipt preview"
-              className="w-full h-48 object-cover rounded-lg"
+              className="bg-muted/30 max-h-64 w-full object-contain"
             />
             {isAnalyzing ? (
-              <div className="absolute inset-0 bg-background/80 flex items-center justify-center rounded-lg">
-                <div className="flex flex-col items-center gap-2">
-                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                  <p className="text-sm font-medium">AI가 분석 중...</p>
+              <div className="bg-background/80 absolute inset-0 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-3">
+                  <Loader2 className="text-primary h-10 w-10 animate-spin" />
+                  <p className="text-sm font-medium">AI가 거래 내역을 분석 중...</p>
                 </div>
               </div>
             ) : (
@@ -95,12 +114,12 @@ export function ReceiptUpload({ onAnalyzed }: ReceiptUploadProps) {
                 className="absolute top-2 right-2"
                 onClick={clearPreview}
               >
-                <X className="w-4 h-4" />
+                <X className="h-4 w-4" />
               </Button>
             )}
           </div>
         ) : (
-          <div className="flex gap-3">
+          <div className="flex gap-4 p-6">
             <input
               ref={cameraInputRef}
               type="file"
@@ -119,24 +138,24 @@ export function ReceiptUpload({ onAnalyzed }: ReceiptUploadProps) {
 
             <Button
               variant="outline"
-              className="flex-1 h-24 flex-col gap-2"
+              className="hover:bg-primary/5 hover:border-primary h-32 flex-1 flex-col gap-3"
               onClick={() => cameraInputRef.current?.click()}
             >
-              <Camera className="w-6 h-6" />
-              <span className="text-sm">카메라</span>
+              <Camera className="text-muted-foreground h-8 w-8" />
+              <span className="text-sm font-medium">카메라로 촬영</span>
             </Button>
 
             <Button
               variant="outline"
-              className="flex-1 h-24 flex-col gap-2"
+              className="hover:bg-primary/5 hover:border-primary h-32 flex-1 flex-col gap-3"
               onClick={() => fileInputRef.current?.click()}
             >
-              <Upload className="w-6 h-6" />
-              <span className="text-sm">갤러리</span>
+              <Upload className="text-muted-foreground h-8 w-8" />
+              <span className="text-sm font-medium">갤러리에서 선택</span>
             </Button>
           </div>
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
