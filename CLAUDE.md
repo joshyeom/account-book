@@ -25,6 +25,7 @@ npm run cap:sync # Sync web assets to native projects
 **Stack**: Next.js 14 (App Router) + TypeScript + TailwindCSS + shadcn/ui + Supabase + OpenAI
 
 **Key Directories**:
+
 - `src/app/` - Next.js App Router pages and API routes
   - `(auth)/` - 인증 관련 페이지 (login)
   - `(main)/` - 인증된 사용자용 페이지 (홈, 지출추가)
@@ -43,13 +44,14 @@ npm run cap:sync # Sync web assets to native projects
 ## Supabase Setup
 
 1. Supabase 프로젝트 생성 후 `.env.local` 설정:
+
 ```
 NEXT_PUBLIC_SUPABASE_URL=your_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
 OPENAI_API_KEY=your_openai_key
 ```
 
-2. Authentication > Providers에서 Google, Kakao OAuth 설정
+2. Authentication > Providers에서 Google OAuth 설정
 3. SQL Editor에서 `supabase/schema.sql` 실행
 
 ## Data Model
@@ -62,6 +64,7 @@ RLS 정책으로 사용자별 데이터 격리.
 ## AI Integration
 
 `/api/ai/analyze-receipt` - GPT-4 Vision을 사용한 영수증 분석
+
 - 이미지에서 상호명, 금액, 날짜 추출
 - 기존 카테고리 매칭 또는 새 카테고리 제안
 - 응답: `{ name, amount, date, category, isNewCategory, suggestedIcon?, suggestedColor? }`
@@ -69,6 +72,7 @@ RLS 정책으로 사용자별 데이터 격리.
 ## Mobile (Capacitor)
 
 iOS/Android 네이티브 앱 빌드를 위한 Capacitor 설정:
+
 - `capacitor.config.ts` - 앱 ID, 이름, webDir 설정
 - `ios/` - Xcode 프로젝트 (Pod install 필요)
 - `android/` - Android Studio 프로젝트
