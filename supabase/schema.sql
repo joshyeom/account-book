@@ -12,6 +12,7 @@ CREATE TABLE categories (
   icon TEXT NOT NULL DEFAULT 'HelpCircle',
   color TEXT NOT NULL DEFAULT 'hsl(0, 0%, 50%)',
   is_default BOOLEAN NOT NULL DEFAULT false,
+  category_type TEXT NOT NULL DEFAULT 'expense' CHECK (category_type IN ('income', 'expense', 'both')),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
 );
 
@@ -22,6 +23,7 @@ CREATE TABLE expenses (
   category_id UUID REFERENCES categories(id) ON DELETE SET NULL,
   name TEXT NOT NULL,
   amount INTEGER NOT NULL,
+  type TEXT NOT NULL DEFAULT 'expense' CHECK (type IN ('income', 'expense')),
   date DATE NOT NULL,
   receipt_url TEXT,
   ai_processed BOOLEAN NOT NULL DEFAULT false,
@@ -77,12 +79,15 @@ CREATE POLICY "Users can delete their own expenses"
   USING (auth.uid() = user_id);
 
 -- Insert default categories
-INSERT INTO categories (name, icon, color, is_default) VALUES
-  ('식비', 'Utensils', 'hsl(0, 84%, 60%)', true),
-  ('교통', 'Car', 'hsl(25, 95%, 53%)', true),
-  ('카페', 'Coffee', 'hsl(30, 41%, 41%)', true),
-  ('쇼핑', 'ShoppingBag', 'hsl(280, 68%, 47%)', true),
-  ('여가', 'Film', 'hsl(221, 83%, 53%)', true),
-  ('건강', 'Heart', 'hsl(142, 71%, 45%)', true),
-  ('주거', 'Home', 'hsl(186, 94%, 37%)', true),
-  ('공과금', 'Zap', 'hsl(48, 96%, 53%)', true);
+INSERT INTO categories (name, icon, color, is_default, category_type) VALUES
+  ('식비', 'Utensils', 'hsl(0, 84%, 60%)', true, 'expense'),
+  ('교통', 'Car', 'hsl(25, 95%, 53%)', true, 'expense'),
+  ('카페', 'Coffee', 'hsl(30, 41%, 41%)', true, 'expense'),
+  ('쇼핑', 'ShoppingBag', 'hsl(280, 68%, 47%)', true, 'expense'),
+  ('여가', 'Film', 'hsl(221, 83%, 53%)', true, 'expense'),
+  ('건강', 'Heart', 'hsl(142, 71%, 45%)', true, 'expense'),
+  ('주거', 'Home', 'hsl(186, 94%, 37%)', true, 'expense'),
+  ('공과금', 'Zap', 'hsl(48, 96%, 53%)', true, 'expense'),
+  ('급여', 'Wallet', 'hsl(142, 76%, 36%)', true, 'income'),
+  ('부수입', 'TrendingUp', 'hsl(200, 98%, 39%)', true, 'income'),
+  ('투자수익', 'LineChart', 'hsl(262, 83%, 58%)', true, 'income');
