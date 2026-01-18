@@ -82,7 +82,10 @@ const SelectContent = ({
   );
 };
 
-const SelectLabel = ({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>) => {
+const SelectLabel = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof SelectPrimitive.Label>) => {
   return (
     <SelectPrimitive.Label
       data-slot="select-label"

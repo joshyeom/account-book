@@ -176,4 +176,4 @@ JSON 형식으로만 응답해주세요:
     console.error("Receipt analysis error:", error);
     return NextResponse.json({ error: "Failed to analyze receipt" }, { status: 500 });
   }
-}
+};

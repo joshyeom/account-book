@@ -16,7 +16,10 @@ const Avatar = ({ className, ...props }: React.ComponentProps<typeof AvatarPrimi
   );
 };
 
-const AvatarImage = ({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) => {
+const AvatarImage = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof AvatarPrimitive.Image>) => {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"

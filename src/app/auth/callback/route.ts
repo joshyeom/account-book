@@ -18,4 +18,4 @@ export const GET = async (request: Request) => {
 
   // Return the user to an error page with instructions
   return NextResponse.redirect(`${origin}/login?error=auth_failed`);
-}
+};

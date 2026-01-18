@@ -60,7 +60,7 @@ export const ReceiptUpload = ({ onAnalyzed }: ReceiptUploadProps) => {
 
         const data: AnalyzedReceiptResponse = await response.json();
         onAnalyzed(data);
-        const itemCount = data.items?.length || 0;
+        const itemCount = data.items?.length ?? 0;
         toast.success(`${itemCount}건의 거래 내역을 찾았습니다!`);
       } catch (error) {
         console.error("Analysis error:", error);
@@ -158,4 +158,4 @@ export const ReceiptUpload = ({ onAnalyzed }: ReceiptUploadProps) => {
       </CardContent>
     </Card>
   );
-}
+};

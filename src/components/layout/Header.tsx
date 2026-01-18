@@ -26,4 +26,4 @@ export const Header = ({ title, showBack = false }: HeaderProps) => {
       </div>
     </header>
   );
-}
+};

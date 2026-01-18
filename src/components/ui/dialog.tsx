@@ -93,7 +93,10 @@ const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
   );
 };
 
-const DialogTitle = ({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) => {
+const DialogTitle = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Title>) => {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"

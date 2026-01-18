@@ -39,4 +39,4 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
       </p>
     </div>
   );
-}
+};

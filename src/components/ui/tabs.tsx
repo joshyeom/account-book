@@ -29,7 +29,10 @@ const TabsList = ({ className, ...props }: React.ComponentProps<typeof TabsPrimi
   );
 };
 
-const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
+const TabsTrigger = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
@@ -42,7 +45,10 @@ const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPr
   );
 };
 
-const TabsContent = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) => {
+const TabsContent = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof TabsPrimitive.Content>) => {
   return (
     <TabsPrimitive.Content
       data-slot="tabs-content"

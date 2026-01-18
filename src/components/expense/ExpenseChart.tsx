@@ -29,8 +29,8 @@ const ExpenseChartComponent = ({ expenses }: ExpenseChartProps) => {
   const chartData = useMemo(() => {
     const categoryTotals = expenses.reduce(
       (acc, expense) => {
-        const categoryName = expense.category?.name || "미분류";
-        const color = expense.category?.color || "hsl(0, 0%, 50%)";
+        const categoryName = expense.category?.name ?? "미분류";
+        const color = expense.category?.color ?? "hsl(0, 0%, 50%)";
 
         if (!acc[categoryName]) {
           acc[categoryName] = { name: categoryName, value: 0, color };
@@ -88,7 +88,7 @@ const ExpenseChartComponent = ({ expenses }: ExpenseChartProps) => {
       </CardContent>
     </Card>
   );
-}
+};
 
 // rerender-memo: 불필요한 리렌더링 방지를 위한 메모이제이션
 export const ExpenseChart = memo(ExpenseChartComponent);
