@@ -1,6 +1,105 @@
 ---
-title: Git 커밋 컨벤션
+title: Git 커밋 및 브랜치 컨벤션
 category: git
+---
+
+## Git 브랜치 전략
+
+### 핵심 원칙
+
+**main 브랜치에 직접 push/merge 금지** - 항상 feature 브랜치에서 PR을 통해 병합
+
+### 브랜치 네이밍
+
+```
+<type>/<설명>
+```
+
+| 타입       | 용도             | 예시                       |
+| ---------- | ---------------- | -------------------------- |
+| `feat`     | 새로운 기능 개발 | `feat/receipt-ocr`         |
+| `fix`      | 버그 수정        | `fix/login-error`          |
+| `refactor` | 리팩토링         | `refactor/auth-logic`      |
+| `docs`     | 문서 작업        | `docs/readme-update`       |
+| `chore`    | 설정/빌드 관련   | `chore/eslint-config`      |
+| `hotfix`   | 긴급 수정        | `hotfix/critical-auth-bug` |
+
+### 브랜치 워크플로우
+
+```bash
+# 1. main에서 새 브랜치 생성
+git checkout main
+git pull origin main
+git checkout -b feat/new-feature
+
+# 2. 작업 후 커밋
+git add .
+git commit -m "feat: 새 기능 구현"
+
+# 3. 원격에 push
+git push -u origin feat/new-feature
+
+# 4. GitHub에서 PR 생성 (main <- feat/new-feature)
+
+# 5. 리뷰 후 PR merge (Squash and merge 권장)
+
+# 6. 로컬 정리
+git checkout main
+git pull origin main
+git branch -d feat/new-feature
+```
+
+---
+
+## Pull Request 규칙
+
+### PR 제목 형식
+
+커밋 메시지와 동일한 Conventional Commits 형식 사용
+
+```
+<type>: <제목>
+```
+
+예시:
+
+- `feat: 월별 지출 통계 차트 추가`
+- `fix: 로그인 실패 시 에러 표시 오류 수정`
+
+### PR 본문 템플릿
+
+```markdown
+## 변경 사항
+
+## <!-- 이 PR에서 변경된 내용 요약 -->
+
+## 변경 이유
+
+<!-- 왜 이 변경이 필요한지 설명 -->
+
+## 테스트
+
+<!-- 테스트 방법 또는 체크리스트 -->
+
+- [ ] 로컬에서 테스트 완료
+- [ ] 빌드 성공 확인
+
+## 스크린샷 (선택)
+
+<!-- UI 변경이 있는 경우 -->
+
+## 관련 이슈
+
+<!-- Closes #123 -->
+```
+
+### PR 규칙
+
+- 하나의 PR은 하나의 목적만 가짐
+- 가능한 작은 단위로 분리
+- 자체 리뷰 후 PR 생성
+- merge 전 빌드 성공 확인
+
 ---
 
 ## Git 커밋 컨벤션
