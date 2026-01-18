@@ -56,7 +56,7 @@ type StatisticsClientProps = {
   transactions: ExpenseWithCategory[];
 };
 
-export function StatisticsClient({ transactions }: StatisticsClientProps) {
+export const StatisticsClient = ({ transactions }: StatisticsClientProps) => {
   const [period, setPeriod] = useState<Period>("month");
   const [offset, setOffset] = useState(0); // 0 = current, -1 = previous, etc.
 
@@ -118,9 +118,9 @@ export function StatisticsClient({ transactions }: StatisticsClientProps) {
       .filter((t) => t.type === "expense" || !t.type)
       .reduce(
         (acc, t) => {
-          const categoryName = t.category?.name || "미분류";
-          const color = t.category?.color || "hsl(0, 0%, 50%)";
-          const icon = t.category?.icon || "HelpCircle";
+          const categoryName = t.category?.name ?? "미분류";
+          const color = t.category?.color ?? "hsl(0, 0%, 50%)";
+          const icon = t.category?.icon ?? "HelpCircle";
 
           if (!acc[categoryName]) {
             acc[categoryName] = { name: categoryName, value: 0, color, icon };
@@ -136,9 +136,9 @@ export function StatisticsClient({ transactions }: StatisticsClientProps) {
       .filter((t) => t.type === "income")
       .reduce(
         (acc, t) => {
-          const categoryName = t.category?.name || "미분류";
-          const color = t.category?.color || "hsl(0, 0%, 50%)";
-          const icon = t.category?.icon || "HelpCircle";
+          const categoryName = t.category?.name ?? "미분류";
+          const color = t.category?.color ?? "hsl(0, 0%, 50%)";
+          const icon = t.category?.icon ?? "HelpCircle";
 
           if (!acc[categoryName]) {
             acc[categoryName] = { name: categoryName, value: 0, color, icon };
@@ -355,4 +355,4 @@ export function StatisticsClient({ transactions }: StatisticsClientProps) {
       )}
     </div>
   );
-}
+};

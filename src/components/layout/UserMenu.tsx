@@ -23,7 +23,7 @@ type UserMenuProps = {
   user: User;
 };
 
-export function UserMenu({ user }: UserMenuProps) {
+export const UserMenu = ({ user }: UserMenuProps) => {
   const router = useRouter();
   const supabase = createClient();
 
@@ -37,8 +37,8 @@ export function UserMenu({ user }: UserMenuProps) {
       ?.split(" ")
       .map((n: string) => n[0])
       .join("")
-      .toUpperCase() ||
-    user.email?.[0].toUpperCase() ||
+      .toUpperCase() ??
+    user.email?.[0].toUpperCase() ??
     "U";
 
   return (
@@ -48,7 +48,7 @@ export function UserMenu({ user }: UserMenuProps) {
           <Avatar className="h-9 w-9">
             <AvatarImage
               src={user.user_metadata?.avatar_url}
-              alt={user.user_metadata?.full_name || "User"}
+              alt={user.user_metadata?.full_name ?? "User"}
             />
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
@@ -61,7 +61,7 @@ export function UserMenu({ user }: UserMenuProps) {
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col space-y-0.5">
-            <p className="text-sm font-medium">{user.user_metadata?.full_name || "사용자"}</p>
+            <p className="text-sm font-medium">{user.user_metadata?.full_name ?? "사용자"}</p>
             <p className="text-muted-foreground text-xs">{user.email}</p>
           </div>
         </div>
@@ -82,4 +82,4 @@ export function UserMenu({ user }: UserMenuProps) {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};

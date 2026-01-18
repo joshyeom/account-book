@@ -38,7 +38,7 @@ type SettingsClientProps = {
   customCategories: Category[];
 };
 
-export function SettingsClient({ user, customCategories }: SettingsClientProps) {
+export const SettingsClient = ({ user, customCategories }: SettingsClientProps) => {
   const router = useRouter();
   const supabase = createClient();
   const { theme, setTheme } = useTheme();
@@ -87,11 +87,11 @@ export function SettingsClient({ user, customCategories }: SettingsClientProps) 
             <Avatar className="h-16 w-16">
               <AvatarImage src={user.user_metadata?.avatar_url} />
               <AvatarFallback>
-                {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0) || "U"}
+                {user.user_metadata?.full_name?.charAt(0) ?? user.email?.charAt(0) ?? "U"}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <p className="text-lg font-semibold">{user.user_metadata?.full_name || "사용자"}</p>
+              <p className="text-lg font-semibold">{user.user_metadata?.full_name ?? "사용자"}</p>
               <p className="text-muted-foreground text-sm">{user.email}</p>
             </div>
           </div>
@@ -214,4 +214,4 @@ export function SettingsClient({ user, customCategories }: SettingsClientProps) 
       </Dialog>
     </div>
   );
-}
+};

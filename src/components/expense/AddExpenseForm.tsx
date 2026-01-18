@@ -50,7 +50,7 @@ type TransactionItem = {
   categoryId?: string;
 } & AnalyzedReceiptItem;
 
-export function AddExpenseForm() {
+export const AddExpenseForm = () => {
   const router = useRouter();
   const supabase = createClient();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -158,8 +158,8 @@ export function AddExpenseForm() {
             const categoryInsert: CategoryInsert = {
               user_id: user.id,
               name: item.category,
-              icon: item.suggestedIcon || "HelpCircle",
-              color: item.suggestedColor || "hsl(0, 0%, 50%)",
+              icon: item.suggestedIcon ?? "HelpCircle",
+              color: item.suggestedColor ?? "hsl(0, 0%, 50%)",
               is_default: false,
             };
             const { data: newCategory, error: categoryError } = await supabase
@@ -192,7 +192,7 @@ export function AddExpenseForm() {
           amount: item.amount,
           type: item.type,
           date: item.date,
-          category_id: categoryId || null,
+          category_id: categoryId ?? null,
           ai_processed: true,
         };
 
@@ -432,7 +432,7 @@ export function AddExpenseForm() {
                                     >
                                       {(() => {
                                         const NewIcon =
-                                          ICON_MAP[item.suggestedIcon || "HelpCircle"];
+                                          ICON_MAP[item.suggestedIcon ?? "HelpCircle"];
                                         return NewIcon ? (
                                           <NewIcon
                                             className="h-4 w-4"
@@ -543,4 +543,4 @@ export function AddExpenseForm() {
       )}
     </div>
   );
-}
+};

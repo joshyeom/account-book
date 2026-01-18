@@ -47,7 +47,10 @@ type TransactionsClientProps = {
 
 type FilterType = "all" | "income" | "expense";
 
-export function TransactionsClient({ initialTransactions, categories }: TransactionsClientProps) {
+export const TransactionsClient = ({
+  initialTransactions,
+  categories,
+}: TransactionsClientProps) => {
   const router = useRouter();
   const supabase = createClient();
   const [transactions, setTransactions] = useState(initialTransactions);
@@ -184,9 +187,9 @@ export function TransactionsClient({ initialTransactions, categories }: Transact
               <CardContent className="p-0">
                 {items.map((transaction) => {
                   const IconComponent = transaction.category?.icon
-                    ? ICON_MAP[transaction.category.icon] || HelpCircle
+                    ? (ICON_MAP[transaction.category.icon] ?? HelpCircle)
                     : HelpCircle;
-                  const categoryColor = transaction.category?.color || "hsl(0, 0%, 50%)";
+                  const categoryColor = transaction.category?.color ?? "hsl(0, 0%, 50%)";
                   const isIncome = transaction.type === "income";
 
                   return (
@@ -203,7 +206,7 @@ export function TransactionsClient({ initialTransactions, categories }: Transact
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-medium">{transaction.name}</p>
                         <p className="text-muted-foreground text-sm">
-                          {transaction.category?.name || "미분류"}
+                          {transaction.category?.name ?? "미분류"}
                         </p>
                       </div>
                       <p
@@ -274,4 +277,4 @@ export function TransactionsClient({ initialTransactions, categories }: Transact
       )}
     </div>
   );
-}
+};

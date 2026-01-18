@@ -11,7 +11,7 @@ type HeaderProps = {
   showBack?: boolean;
 };
 
-export function Header({ title, showBack = false }: HeaderProps) {
+export const Header = ({ title, showBack = false }: HeaderProps) => {
   const router = useRouter();
 
   return (
@@ -26,4 +26,4 @@ export function Header({ title, showBack = false }: HeaderProps) {
       </div>
     </header>
   );
-}
+};

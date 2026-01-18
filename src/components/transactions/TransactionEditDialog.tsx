@@ -45,12 +45,12 @@ type TransactionEditDialogProps = {
   onSave: (updated: ExpenseWithCategory) => void;
 };
 
-export function TransactionEditDialog({
+export const TransactionEditDialog = ({
   transaction,
   categories,
   onClose,
   onSave,
-}: TransactionEditDialogProps) {
+}: TransactionEditDialogProps) => {
   const supabase = createClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [transactionType, setTransactionType] = useState<TransactionType>(
@@ -262,4 +262,4 @@ export function TransactionEditDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};

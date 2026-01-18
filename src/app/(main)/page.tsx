@@ -43,7 +43,7 @@ export default async function HomePage() {
     .order("date", { ascending: false })
     .order("created_at", { ascending: false });
 
-  const transactionsWithCategory = (transactions || []) as ExpenseWithCategory[];
+  const transactionsWithCategory = (transactions ?? []) as ExpenseWithCategory[];
   const currentMonth = format(new Date(), "M월", { locale: ko });
 
   // Calculate totals
