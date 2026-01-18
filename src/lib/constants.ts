@@ -136,14 +136,14 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   HelpCircle,
 };
 
-export function formatCurrency(amount: number): string {
+export const formatCurrency = (amount: number): string => {
   return new Intl.NumberFormat("ko-KR", {
     style: "currency",
     currency: "KRW",
   }).format(amount);
-}
+};
 
-export function formatDate(dateString: string): string {
+export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   const today = new Date();
   const yesterday = new Date(today);
@@ -159,4 +159,4 @@ export function formatDate(dateString: string): string {
       day: "numeric",
     }).format(date);
   }
-}
+};

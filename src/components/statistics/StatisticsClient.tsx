@@ -56,7 +56,7 @@ type StatisticsClientProps = {
   transactions: ExpenseWithCategory[];
 };
 
-export function StatisticsClient({ transactions }: StatisticsClientProps) {
+export const StatisticsClient = ({ transactions }: StatisticsClientProps) => {
   const [period, setPeriod] = useState<Period>("month");
   const [offset, setOffset] = useState(0); // 0 = current, -1 = previous, etc.
 

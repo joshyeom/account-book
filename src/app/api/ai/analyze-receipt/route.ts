@@ -22,7 +22,7 @@ type AnalyzedReceiptResponse = {
   items: AnalyzedReceiptItem[];
 };
 
-export async function POST(request: NextRequest) {
+export const POST = async (request: NextRequest) => {
   try {
     // async-api-routes: API 라우트에서 독립적인 작업은 미리 시작
     const openai = new OpenAI({

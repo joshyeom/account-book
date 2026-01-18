@@ -47,7 +47,7 @@ type TransactionsClientProps = {
 
 type FilterType = "all" | "income" | "expense";
 
-export function TransactionsClient({ initialTransactions, categories }: TransactionsClientProps) {
+export const TransactionsClient = ({ initialTransactions, categories }: TransactionsClientProps) => {
   const router = useRouter();
   const supabase = createClient();
   const [transactions, setTransactions] = useState(initialTransactions);
@@ -274,4 +274,4 @@ export function TransactionsClient({ initialTransactions, categories }: Transact
       )}
     </div>
   );
-}
+};

@@ -25,7 +25,7 @@ type ExpenseChartProps = {
   expenses: ExpenseWithCategory[];
 };
 
-function ExpenseChartComponent({ expenses }: ExpenseChartProps) {
+const ExpenseChartComponent = ({ expenses }: ExpenseChartProps) => {
   const chartData = useMemo(() => {
     const categoryTotals = expenses.reduce(
       (acc, expense) => {

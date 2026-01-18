@@ -29,7 +29,7 @@ type ReceiptUploadProps = {
   onAnalyzed: (data: AnalyzedReceiptResponse) => void;
 };
 
-export function ReceiptUpload({ onAnalyzed }: ReceiptUploadProps) {
+export const ReceiptUpload = ({ onAnalyzed }: ReceiptUploadProps) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);

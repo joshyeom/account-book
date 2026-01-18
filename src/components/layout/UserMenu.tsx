@@ -23,7 +23,7 @@ type UserMenuProps = {
   user: User;
 };
 
-export function UserMenu({ user }: UserMenuProps) {
+export const UserMenu = ({ user }: UserMenuProps) => {
   const router = useRouter();
   const supabase = createClient();
 

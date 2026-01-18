@@ -38,7 +38,7 @@ type SettingsClientProps = {
   customCategories: Category[];
 };
 
-export function SettingsClient({ user, customCategories }: SettingsClientProps) {
+export const SettingsClient = ({ user, customCategories }: SettingsClientProps) => {
   const router = useRouter();
   const supabase = createClient();
   const { theme, setTheme } = useTheme();

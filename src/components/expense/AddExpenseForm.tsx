@@ -50,7 +50,7 @@ type TransactionItem = {
   categoryId?: string;
 } & AnalyzedReceiptItem;
 
-export function AddExpenseForm() {
+export const AddExpenseForm = () => {
   const router = useRouter();
   const supabase = createClient();
   const [categories, setCategories] = useState<Category[]>([]);

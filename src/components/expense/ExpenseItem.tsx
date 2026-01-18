@@ -11,7 +11,7 @@ type ExpenseItemProps = {
   expense: ExpenseWithCategory;
 };
 
-export function ExpenseItem({ expense }: ExpenseItemProps) {
+export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
   const IconComponent = expense.category?.icon
     ? ICON_MAP[expense.category.icon] || HelpCircle
     : HelpCircle;
